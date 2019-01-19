@@ -29,7 +29,7 @@ class EstudianteController extends Controller
     }
 
     /**
-     * @Route("/buscar", name="lista_estudiantes", methods={"POST"})
+     * @Route("/buscar", name="lista_estudiantes_buscar", methods={"POST"})
      * @return RestResponse
      */
     public function buscarAction(Request $request){
