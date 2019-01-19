@@ -1,0 +1,62 @@
+<?php
+
+namespace AppBundle\Entity\Inscripcion;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Inscripcion
+ *
+ * @ORM\Table(name="inscripcion")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Inscripcion\InscripcionRepository")
+ */
+class Inscripcion
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Periodo\Periodo")
+     * @ORM\JoinColumn(name="periodo_id", referencedColumnName="id")
+     */
+    private $periodo;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Curso\Curso")
+     * @ORM\JoinColumn(name="curso_id", referencedColumnName="id")
+     */
+    private $curso;
+
+    /**
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Estudiante\Estudiante")
+     * @ORM\JoinTable(name="inscripcion_estudiantes",
+     *      joinColumns={@ORM\JoinColumn(name="inscripcion_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="estudiante_id", referencedColumnName="id")}
+     * )
+     */
+    private $estudiantes;
+
+    public function __construct()
+    {
+        $this->estudiantes = new ArrayCollection();
+    }
+
+
+    /**
+     * Get id.
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+}
